@@ -1,2 +1,2 @@
 # real_cap
-concept of lending_app
+real cap proof of concept based out on React.js and Python Django with Mongo DB
