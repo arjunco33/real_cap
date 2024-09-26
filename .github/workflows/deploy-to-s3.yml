@@ -1,0 +1,27 @@
+name: Deploy Lending Project to S3
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1  # Replace with your AWS region if needed
+
+      - name: Deploy Lending Server to S3
+        run: |
+          aws s3 cp --recursive lending_server/lending_project s3://lendingapp/lending_project
+
+      - name: Deploy Reactdemo to S3
+        run: |
+          aws s3 cp --recursive reactdemo s3://lendingapp/reactdemo
